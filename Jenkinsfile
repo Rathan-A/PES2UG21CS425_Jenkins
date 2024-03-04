@@ -4,20 +4,31 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building the project...'
-                // Add commands to build the project here
+                script {
+                    // Compile the .cpp file using a shell script
+                    sh '''
+                        g++ -o output YOUR_SRN-1.cpp
+                    '''
+                }
             }
         }
         stage('Test') {
             steps {
-                echo 'Running tests...'
-                // Add commands to run tests here
+                script {
+                    // Run the compiled program and print its output
+                    sh './output'
+                }
             }
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying the application...'
-                // Add commands to deploy the application here
+                script {
+                    // Push the changes to your repository
+                    // Assuming you have your repository configured
+                    // and authenticated already
+                    // For example, you might use Git commands here
+                    git push origin master
+                }
             }
         }
     }
