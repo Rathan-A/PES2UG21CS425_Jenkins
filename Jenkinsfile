@@ -21,7 +21,7 @@ pipeline {
                 }
             }
             post {
-                always { it ->
+                always { param ->
                     script {
                         // Add any additional test steps or checks here if needed
                     }
