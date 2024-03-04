@@ -37,10 +37,7 @@ pipeline {
                 script {
                     try {
                         // Push the new .cpp file to your repository
-                        sh 'git add my_program1.cpp'
-                        sh 'git commit -m "Add new .cpp file"'
-                        sh 'git push origin main'
-                        echo 'Deployment Successful'
+                        echo 'Deploy'
                     } catch (Exception e) {
                         echo "Deployment Failed: ${e.message}"
                         currentBuild.result = 'FAILURE'
