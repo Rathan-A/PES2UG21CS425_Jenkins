@@ -21,9 +21,12 @@ pipeline {
                 }
             }
             post {
-                always { param ->
+                always {
                     script {
                         // Add any additional test steps or checks here if needed
+                        echo 'Running additional test steps or checks...'
+                        // Example: Run a shell command
+                        sh 'echo "Additional tests completed"'
                     }
                 }
             }
