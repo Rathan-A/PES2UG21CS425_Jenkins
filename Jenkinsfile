@@ -37,7 +37,7 @@ pipeline {
                 script {
                     try {
                         // Push the new .cpp file to your repository
-                        sh 'git add my_program.cpp'
+                        sh 'git add my_program1.cpp'
                         sh 'git commit -m "Add new .cpp file"'
                         sh 'git push origin main'
                         echo 'Deployment Successful'
