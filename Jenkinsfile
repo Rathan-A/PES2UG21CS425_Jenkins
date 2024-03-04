@@ -5,41 +5,47 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    // Compile the .cpp file using a shell script
-                    sh '''
-                        g++ -o output YOUR_SRN-1.cpp
-                    '''
+                    // Compile the .cpp file
+                    sh 'g++ -o my_program my_program.cpp'
+                    echo 'Build Stage Successful'
                 }
             }
         }
+        
         stage('Test') {
             steps {
                 script {
                     // Run the compiled program and print its output
-                    sh './output'
+                    sh './my_program'
+                    echo 'Test Stage Successful'
+                }
+            }
+            post {
+                always {
+                    script {
+                        // Add any additional test steps or checks here if needed
+                    }
                 }
             }
         }
+        
         stage('Deploy') {
             steps {
                 script {
-                    // Push the changes to your repository
-                    // Assuming you have your repository configured
-                    // and authenticated already
-                    // For example, you might use Git commands here
-                    git push origin master
+                    // Push the new .cpp file to your repository
+                    sh 'git add my_program.cpp'
+                    sh 'git commit -m "Add new .cpp file"'
+                    sh 'git push origin main'
+                    echo 'Deployment Successful'
                 }
             }
         }
     }
     
     post {
-        always {
-            script {
-                if (currentBuild.result == 'FAILURE') {
-                    echo 'Pipeline failed'
-                }
-            }
+        failure {
+            echo 'Pipeline failed'
         }
     }
 }
+
