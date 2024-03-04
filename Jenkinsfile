@@ -36,8 +36,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        // Push the new .cpp file to your repository
-                        echo 'Deploy'
+                        echo 'Deployment Successful'
                     } catch (Exception e) {
                         echo "Deployment Failed: ${e.message}"
                         currentBuild.result = 'FAILURE'
@@ -51,6 +50,13 @@ pipeline {
     post {
         failure {
             echo 'Pipeline failed'
+        }
+        success {
+            script {
+                // Print the repository URL
+                def repositoryUrl = sh(script: 'git config --get remote.origin.url', returnStdout: true).trim()
+                echo "Repository URL: ${repositoryUrl}"
+            }
         }
     }
 }
