@@ -35,11 +35,17 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    // Push the new .cpp file to your repository
-                    sh 'git add my_program.cpp'
-                    sh 'git commit -m "Add new .cpp file"'
-                    sh 'git push origin main'
-                    echo 'Deployment Successful'
+                    try {
+                        // Push the new .cpp file to your repository
+                        sh 'git add my_program.cpp'
+                        sh 'git commit -m "Add new .cpp file"'
+                        sh 'git push origin main'
+                        echo 'Deployment Successful'
+                    } catch (Exception e) {
+                        echo "Deployment Failed: ${e.message}"
+                        currentBuild.result = 'FAILURE'
+                        error 'Deployment failed'
+                    }
                 }
             }
         }
